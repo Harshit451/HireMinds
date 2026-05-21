@@ -52,11 +52,11 @@ export default function PostJob() {
 
     try {
       await apiCreateJob({
-        ...form,
-        requirements: form.requirements.filter(r => r.trim()),
-        skills: form.skills.filter(s => s.trim()),
-        recruiterId: user?.id
-      });
+  ...form,
+  requirements: form.requirements.filter(r => r.trim()),
+  skills: form.skills.filter(s => s.trim()),
+  recruiter_id: user?.id
+});
       await refreshJobs();
       navigate('/jobs');
     } catch (err: any) {
