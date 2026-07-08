@@ -1,3 +1,4 @@
+// Footer component for the site.
 import { Link } from 'react-router-dom';
 import { Brain, Mail, MapPin, Phone, ExternalLink } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -23,7 +24,7 @@ export default function Footer() {
               AI-powered job portal helping you find your dream job and build your career.
             </p>
             <div className="flex space-x-3">
-              <a href="#" className={`p-2 rounded-lg ${darkMode ? 'bg-gray-800 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-600 hover:text-gray-900'}`}>
+              <a href="#" className={`${darkMode ? 'bg-gray-800 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-600 hover:text-gray-900'}`}>
                 <ExternalLink className="w-5 h-5" />
               </a>
             </div>
@@ -35,9 +36,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {['Find Jobs', 'Post a Job', 'AI Tools', 'About Us', 'Contact'].map(link => (
                 <li key={link}>
-                  <Link to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
-                    {link}
-                  </Link>
+                  <Link to={`/${link.toLowerCase().replace(/\\s+/g, '-')}`} className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}> {link} </Link>
                 </li>
               ))}
             </ul>
@@ -55,9 +54,7 @@ export default function Footer() {
                 { name: 'Resume Improver', path: '/ai/resume-improver' },
               ].map(tool => (
                 <li key={tool.path}>
-                  <Link to={tool.path} className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
-                    {tool.name}
-                  </Link>
+                  <Link to={tool.path} className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}> {tool.name} </Link>
                 </li>
               ))}
             </ul>
@@ -68,25 +65,20 @@ export default function Footer() {
             <h3 className={`font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Contact Us</h3>
             <ul className="space-y-3">
               <li className={`flex items-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                <Mail className="w-4 h-4 mr-2" />
-                support@hireminds.ai
+                <Mail className="w-4 h-4 mr-2" /> support@hireminds.ai
               </li>
               <li className={`flex items-center text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                <Phone className="w-4 h-4 mr-2" />
-                +1 (555) 123-4567
+                <Phone className="w-4 h-4 mr-2" /> +1 (555) 123-4567
               </li>
               <li className={`flex items-start text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                <MapPin className="w-4 h-4 mr-2 mt-0.5" />
-                123 Tech Street, San Francisco, CA 94105
+                <MapPin className="w-4 h-4 mr-2 mt-0.5" /> 123 Tech Street, San Francisco, CA 94105
               </li>
             </ul>
           </div>
         </div>
 
         <div className={`mt-12 pt-8 border-t ${darkMode ? 'border-gray-800' : 'border-gray-200'} flex flex-col md:flex-row justify-between items-center`}>
-          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            © 2024 HireMinds AI. All rights reserved.
-          </p>
+          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>© 2024 HireMinds AI. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>Privacy Policy</a>
             <a href="#" className={`text-sm ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>Terms of Service</a>

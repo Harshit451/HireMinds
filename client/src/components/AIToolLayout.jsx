@@ -1,22 +1,27 @@
-import { ReactNode } from 'react';
+// Layout wrapper for AI tool pages.
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
-interface AIToolLayoutProps {
-  title: string;
-  description: string;
-  icon: ReactNode;
-  children: ReactNode;
-}
-
-export default function AIToolLayout({ title, description, icon, children }: AIToolLayoutProps) {
+/**
+ * Layout component used by AI‑tool pages.
+ *
+ * @param {object} props
+ * @param {string} props.title – Page title.
+ * @param {string} props.description – Short description.
+ * @param {ReactNode} props.icon – Icon element.
+ * @param {ReactNode} props.children – Page content.
+ */
+export default function AIToolLayout({ title, description, icon, children }) {
   const { darkMode } = useApp();
 
   return (
     <div className={`min-h-screen pt-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <Link to="/ai-tools" className={`inline-flex items-center mb-6 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
+        <Link
+          to="/ai-tools"
+          className={`inline-flex items-center mb-6 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to AI Tools
         </Link>

@@ -1,30 +1,16 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Job } from '../types';
 import { apiGetJobs, apiGetCurrentUser } from '../lib/api';
-interface AppContextType {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  jobs: Job[];
-  setJobs: (jobs: Job[]) => void;
-  savedJobs: string[];
-  saveJob: (jobId: string) => void;
-  unsaveJob: (jobId: string) => void;
-  darkMode: boolean;
-  toggleDarkMode: () => void;
-  loading: boolean;
-  signOut: () => void;
-  refreshJobs: () => void;
-}
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
+const AppContext = createContext(undefined);
 
-export function AppProvider({ children }: { children: ReactNode }) {
+export function AppProvider({ children }) {
   // Initialize with sample jobs immediately to avoid white screen
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState(null);
   
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobs, setJobs] = useState([]);
   
-  const [savedJobs, setSavedJobs] = useState<string[]>(() => {
+  const [savedJobs, setSavedJobs] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('hireminds_saved') || '[]');
     } catch {
@@ -83,7 +69,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const saveJob = (jobId: string) => {
+  const saveJob = (jobId) => {
     const updated = [...savedJobs, jobId];
     setSavedJobs(updated);
     try {
@@ -93,7 +79,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const unsaveJob = (jobId: string) => {
+  const unsaveJob = (jobId) => {
     const updated = savedJobs.filter(id => id !== jobId);
     setSavedJobs(updated);
     try {

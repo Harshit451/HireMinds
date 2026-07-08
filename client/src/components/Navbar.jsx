@@ -1,8 +1,14 @@
+// Navbar component – top navigation bar with logo, links, dark mode toggle, and user menu.
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon, ChevronDown, LogOut, Briefcase, BookmarkCheck, Brain } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
+/**
+ * Main site navigation.
+ *
+ * No props are required – the component consumes global state via useApp().
+ */
 export default function Navbar() {
   const { user, darkMode, toggleDarkMode, signOut } = useApp();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -17,7 +23,7 @@ export default function Navbar() {
     { name: 'Contact', path: '/contact' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 ${darkMode ? 'bg-gray-900/95' : 'bg-white/95'} backdrop-blur-md border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}`}>
