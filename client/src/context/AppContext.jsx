@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, Job } from '../types';
+import { createContext, useContext, useState, useEffect } from 'react';
+
 import { apiGetJobs, apiGetCurrentUser } from '../lib/api';
 
 const AppContext = createContext(undefined);
