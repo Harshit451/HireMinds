@@ -1,37 +1,4 @@
-
-
-// function getApiKey(): string | null {
-//   try {
-//     const key = import.meta.env.VITE_GEMINI_API_KEY;
-//     if (!key || key === 'your_gemini_api_key_here') {
-//       return null;
-//     }
-//     return key;
-//   } catch {
-//     return null;
-//   }
-// }
-
-// async function getGenAI() {
-//   const apiKey = getApiKey();
-//   if (!apiKey) {
-//     throw new Error('Please configure your Gemini API key in the .env file (VITE_GEMINI_API_KEY)');
-//   }
-  
-//   if (!genAI) {
-//   try {
-//     genAI = new GoogleGenAI({
-//       apiKey,
-//     });
-//   } catch (error) {
-//     throw new Error('Failed to initialize AI service');
-//   }
-// }
-//   return genAI;
-// }
-
-async function generateContent(prompt: string): Promise<string> {
-
+async function generateContent(prompt) {
   const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
 
   if (!apiKey) {
@@ -69,13 +36,7 @@ async function generateContent(prompt: string): Promise<string> {
 }
 
 // Resume Checker - Returns score out of 100
-export async function checkResume(resumeText: string): Promise<{
-  score: number;
-  sections: { name: string; score: number; feedback: string }[];
-  strengths: string[];
-  weaknesses: string[];
-  atsScore: number;
-}> {
+export async function checkResume(resumeText) {
   const prompt = `Analyze this resume and provide a detailed assessment. Return ONLY valid JSON in this exact format:
 {
   "score": <overall score 0-100>,
@@ -121,10 +82,7 @@ ${resumeText}`;
 }
 
 // Resume Improver - Returns suggestions
-export async function improveResume(resumeText: string): Promise<{
-  suggestions: { type: 'error' | 'warning' | 'tip'; category: string; original: string; suggested: string; reason: string }[];
-  improvedResume: string;
-}> {
+export async function improveResume(resumeText) {
   const prompt = `Analyze this resume and provide specific improvement suggestions. Return ONLY valid JSON:
 {
   "suggestions": [
@@ -161,7 +119,7 @@ ${resumeText}`;
 }
 
 // Interview Guide
-export async function generateInterviewGuide(jobTitle: string, company: string, jobDescription: string): Promise<string> {
+export async function generateInterviewGuide(jobTitle, company, jobDescription) {
   const prompt = `Create a comprehensive interview preparation guide for a ${jobTitle} position at ${company || 'a tech company'}.
 
 Job Description: ${jobDescription || 'General ' + jobTitle + ' role'}
@@ -183,12 +141,12 @@ Format the response in markdown with clear sections and bullet points.`;
 
 // Cover Letter Generator
 export async function generateCoverLetter(
-  jobTitle: string,
-  company: string,
-  jobDescription: string,
-  skills: string,
-  experience: string
-): Promise<string> {
+  jobTitle,
+  company,
+  jobDescription,
+  skills,
+  experience
+) {
   const prompt = `Write a professional cover letter for a ${jobTitle} position at ${company}.
 
 Job Description: ${jobDescription || 'Not provided'}
@@ -209,11 +167,11 @@ Return the cover letter in a professional format ready to use.`;
 
 // Salary Estimator
 export async function estimateSalary(
-  jobTitle: string,
-  location: string,
-  experience: string,
-  skills: string
-): Promise<string> {
+  jobTitle,
+  location,
+  experience,
+  skills
+) {
   const prompt = `Provide a detailed salary analysis for a ${jobTitle} position in ${location}.
 
 Experience Level: ${experience || 'Mid-level'}
@@ -254,12 +212,12 @@ Format in markdown with clear sections.`;
 
 // Job Description Generator
 export async function generateJobDescription(
-  title: string,
-  company: string,
-  type: string,
-  requirements: string,
-  responsibilities: string
-): Promise<string> {
+  title,
+  company,
+  type,
+  requirements,
+  responsibilities
+) {
   const prompt = `Create a professional, SEO-optimized job description for a ${title} position at ${company} (${type}).
 
 Requirements provided: ${requirements || 'Standard requirements'}

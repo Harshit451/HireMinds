@@ -1,18 +1,10 @@
-import { User, Job, Application } from '../types';
 import { supabase } from './supabase';
 
 // ============================================
 // AUTH API - SUPABASE
 // ============================================
 
-export async function apiSignUp(data: {
-  name: string;
-  email: string;
-  password: string;
-  role: 'seeker' | 'recruiter';
-  company?: string;
-}): Promise<{ user: User }> {
-
+export async function apiSignUp(data) {
   const { data: authData, error } = await supabase.auth.signUp({
     email: data.email,
     password: data.password,
@@ -22,7 +14,7 @@ export async function apiSignUp(data: {
     throw error;
   }
 
-  const user: User = {
+  const user = {
     id: authData.user?.id || crypto.randomUUID(),
     name: data.name,
     email: data.email,
@@ -48,11 +40,7 @@ export async function apiSignUp(data: {
   return { user };
 }
 
-export async function apiSignIn(
-  email: string,
-  password: string
-): Promise<{ user: User }> {
-
+export async function apiSignIn(email, password) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -70,8 +58,7 @@ export async function apiSignIn(
 
   // FIX: create missing profile automatically
   if (!profile) {
-
-    const fallbackUser: User = {
+    const fallbackUser = {
       id: data.user.id,
       name: data.user.email?.split('@')[0] || 'User',
       email: data.user.email || '',
@@ -101,12 +88,11 @@ export async function apiSignIn(
   };
 }
 
-export async function apiSignOut(): Promise<void> {
+export async function apiSignOut() {
   await supabase.auth.signOut();
 }
 
-export async function apiGetCurrentUser(): Promise<User | null> {
-
+export async function apiGetCurrentUser() {
   const { data: auth } = await supabase.auth.getUser();
 
   if (!auth.user) return null;
@@ -133,10 +119,7 @@ export async function apiGetCurrentUser(): Promise<User | null> {
 // JOBS API
 // ============================================
 
-export async function apiCreateJob(
-  job: Omit<Job, 'id' | 'posted' | 'applicants'>
-): Promise<Job> {
-
+export async function apiCreateJob(job) {
   const { data, error } = await supabase
     .from('jobs')
     .insert([{
@@ -151,8 +134,7 @@ export async function apiCreateJob(
   return data;
 }
 
-export async function apiGetJobs(): Promise<Job[]> {
-
+export async function apiGetJobs() {
   const { data, error } = await supabase
     .from('jobs')
     .select('*')
@@ -160,7 +142,7 @@ export async function apiGetJobs(): Promise<Job[]> {
 
   if (error) throw error;
 
-  return data.map((job: any) => ({
+  return data.map((job) => ({
     id: job.id,
     title: job.title,
     company: job.company,
@@ -181,12 +163,7 @@ export async function apiGetJobs(): Promise<Job[]> {
 // APPLICATIONS API
 // ============================================
 
-export async function apiApplyToJob(
-  jobId: string,
-  resume?: string,
-  coverLetter?: string
-): Promise<Application> {
-
+export async function apiApplyToJob(jobId, resume, coverLetter) {
   const { data: auth } = await supabase.auth.getUser();
 
   if (!auth.user) {
@@ -210,8 +187,7 @@ export async function apiApplyToJob(
   return data;
 }
 
-export async function apiSaveJob(jobId: string) {
-
+export async function apiSaveJob(jobId) {
   const { data: auth } = await supabase.auth.getUser();
 
   if (!auth.user) {
@@ -229,7 +205,6 @@ export async function apiSaveJob(jobId: string) {
 }
 
 export async function apiGetSavedJobs() {
-
   const { data: auth } = await supabase.auth.getUser();
 
   if (!auth.user) return [];

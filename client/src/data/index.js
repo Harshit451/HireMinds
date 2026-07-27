@@ -1,6 +1,6 @@
 import { FileText, MessageSquare, FileEdit, DollarSign, Wand2, Sparkles } from 'lucide-react';
 
-// Re-export categories from jobs.ts
+// Re-export categories from jobs.js
 export { categories } from './jobs';
 
 // AI Tools data adapted from src/pages/AITools.tsx
@@ -17,7 +17,7 @@ export const aiTools = [
     name: 'Interview Guide',
     desc: "Get personalized interview questions and answers based on the job you're applying for.",
     path: '/ai/interview-guide',
-    color: 'from-green-500 to-emerald-5 00',
+    color: 'from-green-500 to-emerald-500',
   },
   {
     icon: FileEdit,
@@ -45,7 +45,7 @@ export const aiTools = [
     name: 'Resume Improver',
     desc: 'Upload your resume and get specific suggestions for improvements with before/after examples.',
     path: '/ai/resume-improver',
-    color: 'from-pink-5 00 to-rose-500',
+    color: 'from-pink-500 to-rose-500',
   },
 ];
 
