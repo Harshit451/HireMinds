@@ -31,7 +31,7 @@ export default function Jobs() {
     return matchesSearch && matchesType && matchesCategory;
   });
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (search) params.set('search', search);
@@ -151,7 +151,7 @@ export default function Jobs() {
             {search && (
               <span className={`px-3 py-1 rounded-full text-sm flex items-center ${darkMode ? 'bg-indigo-900/30 text-indigo-400' : 'bg-indigo-100 text-indigo-700'}`}>
                 Search: {search}
-                <button onClick={() => { setSearch(''); handleSearch({ preventDefault: () => {} } as React.FormEvent); }} className="ml-2">
+                <button onClick={() => { setSearch(''); handleSearch({ preventDefault: () => {} }); }} className="ml-2">
                   <X className="w-3 h-3" />
                 </button>
               </span>

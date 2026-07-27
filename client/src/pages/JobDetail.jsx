@@ -3,13 +3,12 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { MapPin, Clock, DollarSign, Bookmark, BookmarkCheck, Share2, Building, Users, ArrowLeft, CheckCircle, Send } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { apiApplyToJob } from '../lib/api';
-import { Job } from '../types';
 
 export default function JobDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const { darkMode, jobs, user, savedJobs, saveJob, unsaveJob } = useApp();
   const navigate = useNavigate();
-  const [job, setJob] = useState<Job | null>(null);
+  const [job, setJob] = useState(null);
   const [applied, setApplied] = useState(false);
   const [applying, setApplying] = useState(false);
 
@@ -30,9 +29,9 @@ export default function JobDetail() {
 
     setApplying(true);
     try {
-      await apiApplyToJob(job!.id);
+      await apiApplyToJob(job.id);
       setApplied(true);
-    } catch (error: any) {
+    } catch (error) {
       alert(error.message);
     }
     setApplying(false);

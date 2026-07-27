@@ -13,7 +13,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
@@ -22,13 +22,13 @@ export default function SignIn() {
       const { user } = await apiSignIn(email, password);
       setUser(user);
       navigate('/jobs');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Sign in failed');
     }
     setLoading(false);
   };
 
-  const handleDemoLogin = async (role: 'seeker' | 'recruiter') => {
+  const handleDemoLogin = async (role) => {
     setLoading(true);
     setError('');
     

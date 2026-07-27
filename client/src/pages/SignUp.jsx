@@ -7,7 +7,7 @@ import { apiSignUp } from '../lib/api';
 export default function SignUp() {
   const { darkMode, setUser } = useApp();
   const navigate = useNavigate();
-  const [role, setRole] = useState<'seeker' | 'recruiter'>('seeker');
+  const [role, setRole] = useState('seeker');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
@@ -24,7 +24,7 @@ export default function SignUp() {
     uppercase: /[A-Z]/.test(password),
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -50,7 +50,7 @@ export default function SignUp() {
       });
       setUser(user);
       navigate('/jobs');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Sign up failed');
     }
     setLoading(false);

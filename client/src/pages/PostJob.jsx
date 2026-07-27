@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Briefcase, MapPin, DollarSign, FileText, Plus, X, Sparkles } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { apiCreateJob } from '../lib/api';
-import { Job } from '../types';
 import { categories } from '../data/jobs';
 
 export default function PostJob() {
@@ -16,7 +15,7 @@ export default function PostJob() {
     title: '',
     company: user?.company || '',
     location: '',
-    type: 'Full-time' as Job['type'],
+    type: 'Full-time',
     salary: '',
     description: '',
     category: 'Engineering',
@@ -24,42 +23,42 @@ export default function PostJob() {
     skills: [''],
   });
 
-  const addField = (field: 'requirements' | 'skills') => {
+  const addField = (field) => {
     setForm(prev => ({
       ...prev,
       [field]: [...prev[field], '']
     }));
   };
 
-  const removeField = (field: 'requirements' | 'skills', index: number) => {
+  const removeField = (field, index) => {
     setForm(prev => ({
       ...prev,
       [field]: prev[field].filter((_, i) => i !== index)
     }));
   };
 
-  const updateField = (field: 'requirements' | 'skills', index: number, value: string) => {
+  const updateField = (field, index, value) => {
     setForm(prev => ({
       ...prev,
       [field]: prev[field].map((item, i) => i === index ? value : item)
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
       await apiCreateJob({
-  ...form,
-  requirements: form.requirements.filter(r => r.trim()),
-  skills: form.skills.filter(s => s.trim()),
-  recruiter_id: user?.id
-});
+        ...form,
+        requirements: form.requirements.filter(r => r.trim()),
+        skills: form.skills.filter(s => s.trim()),
+        recruiter_id: user?.id
+      });
       await refreshJobs();
       navigate('/jobs');
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Failed to post job');
     }
     setLoading(false);
@@ -173,7 +172,7 @@ export default function PostJob() {
                 </label>
                 <select
                   value={form.type}
-                  onChange={(e) => setForm(prev => ({ ...prev, type: e.target.value as Job['type'] }))}
+                  onChange={(e) => setForm(prev => ({ ...prev, type: e.target.value }))}
                   className={`w-full px-4 py-3 rounded-xl border ${
                     darkMode 
                       ? 'bg-gray-700 border-gray-600 text-white' 
