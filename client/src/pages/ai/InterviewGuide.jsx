@@ -34,7 +34,7 @@ export default function InterviewGuide() {
     try {
       const guide = await generateInterviewGuide(jobTitle, company, jobDescription);
       setResult(guide);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Generation failed');
     }
     setLoading(false);

@@ -7,15 +7,15 @@ import { extractTextFromPDF } from '../../utils/pdfParser';
 
 export default function ResumeImprover() {
   const { darkMode } = useApp();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null);
   const [resumeText, setResumeText] = useState('');
   const [fileName, setFileName] = useState('');
   const [loading, setLoading] = useState(false);
   const [parsing, setParsing] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -50,13 +50,13 @@ export default function ResumeImprover() {
     try {
       const improvements = await improveResume(resumeText);
       setResult(improvements);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Analysis failed');
     }
     setLoading(false);
   };
 
-  const getSuggestionIcon = (type: string) => {
+  const getSuggestionIcon = (type) => {
     switch (type) {
       case 'error': return <AlertCircle className="w-5 h-5 text-red-500" />;
       case 'warning': return <AlertTriangle className="w-5 h-5 text-yellow-500" />;
@@ -64,7 +64,7 @@ export default function ResumeImprover() {
     }
   };
 
-  const getSuggestionColor = (type: string) => {
+  const getSuggestionColor = (type) => {
     switch (type) {
       case 'error': return darkMode ? 'bg-red-900/20 border-red-500/30' : 'bg-red-50 border-red-200';
       case 'warning': return darkMode ? 'bg-yellow-900/20 border-yellow-500/30' : 'bg-yellow-50 border-yellow-200';
@@ -140,7 +140,7 @@ export default function ResumeImprover() {
                 Improvement Suggestions ({result.suggestions.length})
               </h3>
               <div className="space-y-4">
-                {result.suggestions.map((suggestion: any, i: number) => (
+                {result.suggestions.map((suggestion, i) => (
                   <div key={i} className={`p-4 rounded-xl border ${getSuggestionColor(suggestion.type)}`}>
                     <div className="flex items-start gap-3">
                       {getSuggestionIcon(suggestion.type)}

@@ -35,7 +35,7 @@ export default function SalaryEstimator() {
     try {
       const estimate = await estimateSalary(jobTitle, location, experience, skills);
       setResult(estimate);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Estimation failed');
     }
     setLoading(false);

@@ -7,15 +7,15 @@ import { extractTextFromPDF } from '../../utils/pdfParser';
 
 export default function ResumeChecker() {
   const { darkMode } = useApp();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef(null);
   const [resumeText, setResumeText] = useState('');
   const [fileName, setFileName] = useState('');
   const [loading, setLoading] = useState(false);
   const [parsing, setParsing] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState(null);
   const [error, setError] = useState('');
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -50,19 +50,19 @@ export default function ResumeChecker() {
     try {
       const analysis = await checkResume(resumeText);
       setResult(analysis);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Analysis failed');
     }
     setLoading(false);
   };
 
-  const getScoreColor = (score: number) => {
+  const getScoreColor = (score) => {
     if (score >= 80) return 'text-green-500';
     if (score >= 60) return 'text-yellow-500';
     return 'text-red-500';
   };
 
-  const getScoreLabel = (score: number) => {
+  const getScoreLabel = (score) => {
     if (score >= 90) return 'Excellent';
     if (score >= 80) return 'Very Good';
     if (score >= 70) return 'Good';
@@ -170,7 +170,7 @@ export default function ResumeChecker() {
                 Section Analysis
               </h3>
               <div className="space-y-4">
-                {result.sections.map((section: any) => (
+                {result.sections.map((section) => (
                   <div key={section.name}>
                     <div className="flex justify-between mb-1">
                       <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>{section.name}</span>
@@ -198,7 +198,7 @@ export default function ResumeChecker() {
                   Strengths
                 </h3>
                 <ul className="space-y-2">
-                  {result.strengths.map((s: string, i: number) => (
+                  {result.strengths.map((s, i) => (
                     <li key={i} className={`flex items-start ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       <span className="text-green-500 mr-2">✓</span>
                       {s}
@@ -212,7 +212,7 @@ export default function ResumeChecker() {
                   Areas to Improve
                 </h3>
                 <ul className="space-y-2">
-                  {result.weaknesses.map((w: string, i: number) => (
+                  {result.weaknesses.map((w, i) => (
                     <li key={i} className={`flex items-start ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       <span className="text-red-500 mr-2">!</span>
                       {w}
