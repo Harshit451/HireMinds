@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, Sparkles } from "lucide-react";
 import JobCard from "../components/JobCard";
+import { useApp } from "../context/AppContext";
 import { aiTools, categories, stats } from "../data";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
     e.preventDefault();
     // Implement search logic here
   };
+  const { jobs } = useApp();
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
@@ -32,7 +34,6 @@ export default function Home() {
               Leverage cutting-edge AI tools to optimize your resume, prepare for interviews, and land your perfect role.
             </p>
           </div>
-
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="max-w-3xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-4 p-2 bg-white/10 backdrop-blur-md rounded-2xl">
@@ -54,7 +55,6 @@ export default function Home() {
               </button>
             </div>
           </form>
-
           {/* Quick Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto">
             {stats.map((stat, i) => (
@@ -85,9 +85,7 @@ export default function Home() {
               <Link
                 key={cat.name}
                 to={`/jobs?category=${encodeURIComponent(cat.name)}`}
-                className={`p-6 rounded-2xl border transition-all hover:shadow-lg hover:-translate-y-1 ${
-                  "darkMode" ? 'bg-gray-800 border-gray-700 hover:border-indigo-500' : 'bg-gray-50 border-gray-200 hover:border-indigo-300'
-                }`}
+                className={`p-6 rounded-2xl border transition-all hover:shadow-lg hover:-translate-y-1 ${"darkMode" ? 'bg-gray-800 border-gray-700 hover:border-indigo-500' : 'bg-gray-50 border-gray-200 hover:border-indigo-300'}`}
               >
                 <div className="text-4xl mb-3">{cat.icon}</div>
                 <h3 className={`font-semibold ${"darkMode" ? 'text-white' : 'text-gray-900'}`}>{cat.name}</h3>
@@ -119,9 +117,7 @@ export default function Home() {
               <Link
                 key={tool.path}
                 to={tool.path}
-                className={`group p-6 rounded-2xl border transition-all hover:shadow-xl hover:-translate-y-2 ${
-                  "darkMode" ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
-                }`}
+                className={`group p-6 rounded-2xl border transition-all hover:shadow-xl hover:-translate-y-2 ${"darkMode" ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}
               >
                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                   <tool.icon className="w-7 h-7 text-white" />
