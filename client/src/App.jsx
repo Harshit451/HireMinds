@@ -1,5 +1,5 @@
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, Component, ReactNode } from 'react';
+import { useEffect, Component } from 'react';
 import { AppProvider } from './context/AppContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -20,22 +20,17 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 
 // Error Boundary Component
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error?: Error;
-}
-
-class ErrorBoundary extends Component<{ children: ReactNode }, ErrorBoundaryState> {
-  constructor(props: { children: ReactNode }) {
+class ErrorBoundary extends Component {
+  constructor(props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(error) {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
+  componentDidCatch(error, errorInfo) {
     console.error('App Error:', error, errorInfo);
   }
 
